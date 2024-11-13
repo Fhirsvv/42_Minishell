@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 20:38:20 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/11/13 17:56:04 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/11/13 20:05:13 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static int	init(t_myshell *myshell, char **environ)
 	myshell->prompt = NULL;
 	myshell->path = get_path(myshell);
 	myshell->comands = NULL;
-	myshell->err_msg = NULL;
 	return(SUCCESS);
 }
 
