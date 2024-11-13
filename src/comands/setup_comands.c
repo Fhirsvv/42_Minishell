@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 10:29:40 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/11/13 18:51:47 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:45:24 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,14 +69,14 @@ static void	comand_file_io(t_comand *cmds, t_comand *aux, t_comand *next)
 {
 	if (!aux || !next || !cmds)
 		return ;
-		if (!ft_strcmp(next->args[0], ">>"))
-			aux->fds->apend_file = ft_strdup(next->next->args[0]);
-		else if (!ft_strcmp(next->args[0], ">"))
-			aux->fds->output_file = ft_strdup(next->next->args[0]);
-		else if (!ft_strcmp(next->args[0], "<"))
-			aux->fds->input_file = ft_strdup(next->next->args[0]);
-		remove_comand(cmds, next->next);
-		remove_comand(cmds, next);
+	if (!ft_strcmp(next->args[0], ">>"))
+		aux->fds->apend_file = ft_strdup(next->next->args[0]);
+	else if (!ft_strcmp(next->args[0], ">"))
+		aux->fds->output_file = ft_strdup(next->next->args[0]);
+	else if (!ft_strcmp(next->args[0], "<"))
+		aux->fds->input_file = ft_strdup(next->next->args[0]);
+	remove_comand(cmds, next->next);
+	remove_comand(cmds, next);
 }
 void	setup_comands(t_myshell *tsh)
 {

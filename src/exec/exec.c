@@ -6,12 +6,12 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:26:18 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/11/13 19:19:03 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:45:02 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
-
+/*
 static void	exec_one(t_comand *cmd)
 {
 	int fd[2];
@@ -77,7 +77,7 @@ void	exec(t_myshell *tshell)
 	}
 	
 	free(flds);
-}
+}*/
 
 /*
 int	comand_exec(t_myshell *tshell, t_command *cmd)

@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:07:55 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/11/13 19:17:24 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:58:13 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct s_myshell
 	char		**environ;
 	char		*path;
 	char		*prompt;
-	char		*err_msg;
+	int			error;
 	int			pipes_count;
 	t_token		*tokens;
 	t_comand	*comands;
