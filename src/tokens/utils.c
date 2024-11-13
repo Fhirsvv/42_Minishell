@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 21:23:00 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/10/12 00:18:23 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:38:54 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,7 @@ void	update_last_token_symbol(t_myshell *tshell, int new_symbol)
 
 	current = tshell->tokens;
 	if (tshell == NULL || tshell->tokens == NULL)
-	{
-		return;
-	}
+		return ;
 	while (current->next != NULL)
 		current = current->next;
 	current->symbol = new_symbol;
@@ -29,35 +27,38 @@ void	update_last_token_symbol(t_myshell *tshell, int new_symbol)
 int	token_type(char *str)
 {
 	if (ft_strcmp(str, "|") == 0)
-		return(PIPE);
+		return (PIPE);
 	else if (ft_strcmp(str, ">") == 0)
-		return(REDIR_D);
+		return (REDIR_D);
 	else if (ft_strcmp(str, ">>") == 0)
-		return(DOBLE_REDIR_D);
+		return (DOBLE_REDIR_D);
 	else if (ft_strcmp(str, "<") == 0)
-		return(REDIR_I);
+		return (REDIR_I);
 	else if (ft_strcmp(str, "<<") == 0)
-		return(HERE_DOC);
+		return (HERE_DOC);
 	else if (str[0] == '"')
-		return(D_QUOTE);
+		return (D_QUOTE);
 	else if (str[0] == '\'')
-		return(S_QUOTE);
+		return (S_QUOTE);
 	else
-		return(WORD);
+		return (WORD);
 }
 
-void	add_token_and_free(char *start_q, char *end_q, char *prompt, t_myshell *tshell)
+void	add_token_and_free(char *start_q, char *end_q, char *prompt,
+	t_myshell *tshell)
 {
+	char	*buff;
+
+	buff = NULL;
 	if (start_q)
 	{
-		char *buff = ft_substr(prompt, start_q - prompt, end_q - start_q);
+		buff = ft_substr(prompt, start_q - prompt, end_q - start_q);
 		ft_tokenadd_back(&tshell->tokens, ft_token_new(buff, token_type(buff)));
 		ft_free(buff);
 	}
 }
 
-
-void split_various_dolar(t_myshell *tshell)
+void	split_various_dolar(t_myshell *tshell)
 {
 	t_token	*aux;
 	t_token	*new;
@@ -74,7 +75,7 @@ void split_various_dolar(t_myshell *tshell)
 		{
 			arr = ft_split(aux->content, '$');
 			if (!arr)
-				return;
+				return ;
 			new = ft_token_new(ft_strjoin("$", arr[0]), WORD);
 			ft_tokensubstitute(&tshell->tokens, new, aux);
 			i = 1;

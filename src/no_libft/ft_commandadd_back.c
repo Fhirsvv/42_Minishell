@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/07 17:11:33 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/10/11 23:54:26 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:33:27 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@ void	ft_commandadd_back(t_comand **lst, t_comand *new)
 {
 	t_comand	*node;
 
-	if(new == NULL)
-	{
-		printf("new vacio\n");
-		return;
-	}
+	if (new == NULL)
+		return ;
 	if (*lst == NULL)
 		*lst = new;
 	else

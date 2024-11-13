@@ -6,13 +6,13 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/11 23:13:45 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/10/12 00:14:33 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:43:11 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void ft_free2(char *arr1, char *arr2)
+void	ft_free2(char *arr1, char *arr2)
 {
 	free(arr1);
 	free(arr2);
@@ -36,7 +36,7 @@ void	free_comands(t_comand **cmds)
 {
 	t_comand	*aux;
 
-	while(*cmds)
+	while (*cmds)
 	{
 		aux = (*cmds)->next;
 		free_arr((*cmds)->args);
@@ -50,7 +50,7 @@ void	free_comands(t_comand **cmds)
 void	free_fds(t_fds *fds)
 {
 	if (!fds)
-		return;
+		return ;
 	ft_free(fds->apend_file);
 	ft_free(fds->input_file);
 	ft_free(fds->output_file);

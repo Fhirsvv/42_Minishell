@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 19:38:46 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/07 17:07:59 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:32:09 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@ void	ft_tokenadd_back(t_token **lst, t_token *new)
 {
 	t_token	*node;
 
-	if(new == NULL)
-	{
-		printf("new vacio\n");
-		return;
-	}
+	if (new == NULL)
+		return ;
 	if (*lst == NULL)
 		*lst = new;
 	else

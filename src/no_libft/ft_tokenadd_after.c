@@ -6,20 +6,19 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 20:09:33 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/14 20:44:24 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:29:28 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void ft_tokenadd_after(t_token **lst, t_token *new, t_token *wh)
+void	ft_tokenadd_after(t_token **lst, t_token *new, t_token *wh)
 {
-	t_token *node;
-	t_token *aux;
+	t_token	*node;
+	t_token	*aux;
 
 	if (new == NULL || lst == NULL || wh == NULL)
-		return;
-
+		return ;
 	node = *lst;
 	while (node != NULL)
 	{
@@ -28,7 +27,7 @@ void ft_tokenadd_after(t_token **lst, t_token *new, t_token *wh)
 			aux = node->next;
 			node->next = new;
 			new->next = aux;
-			return;
+			return ;
 		}
 		node = node->next;
 	}

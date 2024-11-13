@@ -6,12 +6,12 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 17:18:48 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/11/13 17:38:33 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:18:20 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-#define MINISHELL_H
+# define MINISHELL_H
 
 # include "structs.h"
 # include <readline/history.h>
@@ -57,7 +57,8 @@ void		ft_tokensubstitute(t_token **lst, t_token *new, t_token *wh);
 
 //---TOKENS
 void		tokens(char *prompt, t_myshell *tshell);
-void		add_token_and_free(char *start_q, char *end_q, char *prompt, t_myshell *tshell);
+void		add_token_and_free(char *start_q, char *end_q, char *prompt,
+				t_myshell *tshell);
 int			count_quotes(const char *prompt);
 int			token_type(char *str);
 void		update_last_token_symbol(t_myshell *tshell, int new_symbol);
@@ -66,7 +67,7 @@ void		ft_add_after(t_myshell *tshell, char **arr, t_token *new, int *i);
 
 //---LOOP
 void		loop(t_myshell *tshell);
-void	free_minishell(t_myshell *tshell, char *str);
+void		free_minishell(t_myshell *tshell, char *str);
 
 //---PATH
 char		*get_cmd_path(char *path, char *cmd);
@@ -97,6 +98,6 @@ void		free_fds(t_fds *fds);
 void		free_comands(t_comand **cmds);
 
 //---SIGNALS
-void		signals();
+void		signals(void);
 
 #endif

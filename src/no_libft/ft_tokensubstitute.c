@@ -6,26 +6,25 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/14 19:51:46 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/14 20:43:02 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:27:36 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-void ft_tokensubstitute(t_token **lst, t_token *new, t_token *wh)
+void	ft_tokensubstitute(t_token **lst, t_token *new, t_token *wh)
 {
-	t_token *node;
+	t_token	*node;
 
 	if (new == NULL || lst == NULL || wh == NULL)
-		return;
-
+		return ;
 	if (*lst == wh)
 	{
 		new->next = wh->next;
 		*lst = new;
 		free(wh->content);
 		free(wh);
-		return;
+		return ;
 	}
 	node = *lst;
 	while (node != NULL)
@@ -36,7 +35,7 @@ void ft_tokensubstitute(t_token **lst, t_token *new, t_token *wh)
 			new->next = wh->next;
 			free(wh->content);
 			free(wh);
-			return;
+			return ;
 		}
 		node = node->next;
 	}

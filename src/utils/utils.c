@@ -6,13 +6,13 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 12:33:10 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/11/13 17:51:20 by ecortes-         ###   ########.fr       */
+/*   Updated: 2024/11/13 19:43:29 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-const char *get_token_type_name(int symbol)
+const char	*get_token_type_name(int symbol)
 {
 	switch (symbol)
 	{
@@ -37,7 +37,7 @@ const char *get_token_type_name(int symbol)
 	}
 }
 
-void print_tokens(t_myshell *tshell)
+void	print_tokens(t_myshell *tshell)
 {
 	t_token *current_token;
 
@@ -50,7 +50,7 @@ void print_tokens(t_myshell *tshell)
 	}
 }
 
-void print_args(t_myshell *tshell)
+void	print_args(t_myshell *tshell)
 {
     t_comand *aux;
     int i;
