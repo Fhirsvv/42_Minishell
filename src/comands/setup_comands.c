@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/07 10:29:40 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/11/13 19:45:24 by ecortes-         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:29:02 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static int	pipe_count(t_myshell *tsh)
 {
-	t_comand *aux;
-	int ret;
+	t_comand	*aux;
+	int			ret;
 
 	aux = tsh->comands;
 	ret = 0;
@@ -32,7 +32,7 @@ static void	remove_comand(t_comand *cmds, t_comand *rm)
 {
 	t_comand	*aux;
 	t_comand	*to_rm;
-	
+
 	if (!cmds || !rm)
 		return ;
 	if (cmds == rm)
@@ -78,6 +78,7 @@ static void	comand_file_io(t_comand *cmds, t_comand *aux, t_comand *next)
 	remove_comand(cmds, next->next);
 	remove_comand(cmds, next);
 }
+
 void	setup_comands(t_myshell *tsh)
 {
 	t_comand	*aux;
@@ -92,7 +93,7 @@ void	setup_comands(t_myshell *tsh)
 		if (!is_symbol_setup(next) && next->next) //esto repensarlo pero esta es la idea
 			comand_file_io(tsh->comands, aux, next);
 		else if (!is_symbol_setup(next))
-			perror("syntax error near unexpected token `newline'\n"); //TODO: hacer algo para el manejo de errores
+			perror("syntax error near unexpected token `newline'\n");
 		if (!aux->next)
 			return ;
 		aux = aux->next;

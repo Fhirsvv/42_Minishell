@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 13:56:03 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/11/13 18:27:04 by ecortes-         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:27:40 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static char	**copy_and_add(char **arr, char **aux, char *new)
 {
 	int	i;
-	
+
 	i = 0;
 	while (arr[i])
 	{
@@ -43,14 +43,14 @@ static char	**add_to_matrix(char **arr, char *new)
 	size_t	i;
 
 	i = 0;
-	if(!arr)
+	if (!arr)
 	{
 		aux = ft_calloc(i + 2, sizeof(char *));
 		aux[0] = ft_strdup(new);
 		return (aux);
 	}
-	while(arr[i])
-			i++;
+	while (arr[i])
+		i++;
 	aux = ft_calloc(i + 2, sizeof(char *));
 	if (!aux)
 		return (NULL);
@@ -64,15 +64,15 @@ static int	new_command_symbols(t_myshell *tshell, t_token *aux)
 
 	arr = NULL;
 	arr = add_to_matrix(arr, aux->content);
-	if(!arr)
+	if (!arr)
 		return (ERROR_MEMORY);
 	new = ft_command_new(arr, NULL);
 	ft_commandadd_back(&tshell->comands, new);
 	free_arr(arr);
-	return(SUCCESS);
+	return (SUCCESS);
 }
 
- static t_token	*new_command(t_myshell *tshell, t_token *aux)
+static t_token	*new_command(t_myshell *tshell, t_token *aux)
 {
 	char		**arr;
 	char		**buff;
@@ -83,7 +83,7 @@ static int	new_command_symbols(t_myshell *tshell, t_token *aux)
 			aux->symbol == S_QUOTE))
 	{
 		arr = add_to_matrix(buff, aux->content);
-		if(!arr)
+		if (!arr)
 		{
 			free_arr(buff);
 			return (NULL);
@@ -92,7 +92,7 @@ static int	new_command_symbols(t_myshell *tshell, t_token *aux)
 		buff = arr;
 		aux = aux->next;
 	}
-	if(arr)
+	if (arr)
 	{
 		ft_commandadd_back(&tshell->comands,
 			ft_command_new(arr, get_cmd_path(tshell->path, arr[0])));
@@ -101,28 +101,29 @@ static int	new_command_symbols(t_myshell *tshell, t_token *aux)
 	return (aux);
 }
 
-
 int	comands(t_myshell *tshell)
 {
 	int		error;
 	t_token	*aux;
-	
+
 	aux = tshell->tokens;
-	while(aux)
+	while (aux)
 	{
-		if(aux->symbol == WORD || aux->symbol == D_QUOTE || aux->symbol == S_QUOTE)
+		if (aux->symbol == WORD || aux->symbol == D_QUOTE
+			|| aux->symbol == S_QUOTE)
 		{
 			aux = new_command(tshell, aux);
-			if(!aux)
+			if (!aux)
 				return(ERROR_MEMORY);
 		}
-		if(!(aux->symbol == WORD || aux->symbol == D_QUOTE || aux->symbol == S_QUOTE))
+		if (!(aux->symbol == WORD || aux->symbol == D_QUOTE
+			|| aux->symbol == S_QUOTE))
 		{
 			error = new_command_symbols(tshell, aux);
-			if(error != SUCCESS)
+			if (error != SUCCESS)
 				return (error);
 		}
 		aux = aux->next;
 	}
-	return(SUCCESS);
+	return (SUCCESS);
 }

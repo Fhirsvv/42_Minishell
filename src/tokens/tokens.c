@@ -6,113 +6,105 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 12:08:06 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/11/13 19:42:27 by ecortes-         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:20:05 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/minishell.h"
 
-static void	handle_space(char *prompt, int *i, char **start_q, char quote_char,
-	t_myshell *tshell)
+static void	handle_space(t_token_handler *h)
 {
-	if (prompt[*i] == ' ' && quote_char == '\0' && *start_q)
+	if (h->str[h->i] == ' ' && h->quote == '\0' && h->start_q)
 	{
-		add_token_and_free(*start_q, &prompt[*i], prompt, tshell);
-		*start_q = NULL;
+		add_token_free(h->start_q, &h->str[h->i], h->str, h->ms);
+		h->start_q = NULL;
 	}
 }
 
-static void	handle_quotes(char *prompt, int *i, char *quote_char,
-	char **start_q, t_myshell *tshell)
+static void	handle_quotes(t_token_handler *h)
 {
-	if (prompt[*i] == '\'' || prompt[*i] == '"')
+	if (h->str[h->i] == '\'' || h->str[h->i] == '"')
 	{
-		if (*quote_char == prompt[*i])
+		if (h->quote == h->str[h->i])
 		{
-			add_token_and_free(*start_q, &prompt[*i], prompt, tshell);
-			update_last_token_symbol(tshell, token_type(quote_char));
-			*start_q = NULL;
-			*quote_char = '\0';
+			add_token_free(h->start_q, &h->str[h->i], h->str, h->ms);
+			update_last_token_symbol(h->ms, token_type(&h->quote));
+			h->start_q = NULL;
+			h->quote = '\0';
 		}
-		else if (*quote_char == '\0')
+		else if (h->quote == '\0')
 		{
-			*quote_char = prompt[*i];
-			if (*start_q)
-				add_token_and_free(*start_q, &prompt[*i], prompt, tshell);
-			*start_q = &prompt[*i + 1];
+			h->quote = h->str[h->i];
+			if (h->start_q)
+				add_token_free(h->start_q, &h->str[h->i], h->str, h->ms);
+			h->start_q = &h->str[h->i + 1];
 		}
 	}
 }
 
-static void	handle_pipe(char *prompt, int *i, char *quote_char, char **start_q,
-	t_myshell *tshell)
+static void	handle_pipe(t_token_handler *h)
 {
-	if (prompt[*i] == '|')
+	if (h->str[h->i] == '|')
 	{
-		if (*quote_char == '\0')
+		if (h->quote == '\0')
 		{
-			if (*start_q)
+			if (h->start_q)
 			{
-				add_token_and_free(*start_q, &prompt[*i], prompt, tshell);
-				*start_q = NULL;
+				add_token_free(h->start_q, &h->str[h->i], h->str, h->ms);
+				h->start_q = NULL;
 			}
-			add_token_and_free(&prompt[*i], &prompt[*i + 1], prompt, tshell);
+			add_token_free(&h->str[h->i], &h->str[h->i + 1], h->str, h->ms);
 		}
-		else if (!*start_q)
-			*start_q = &prompt[*i];
+		else if (!h->start_q)
+			h->start_q = &h->str[h->i];
 	}
 }
 
-static void	handle_redirection(char *prompt, int *i, char **start_q,
-	char quote_char, t_myshell *tshell)
+static void	handle_redirection(t_token_handler *h)
 {
-	if ((prompt[*i] == '<' || prompt[*i] == '>') && quote_char == '\0')
+	if ((h->str[h->i] == '<' || h->str[h->i] == '>') && h->quote == '\0')
 	{
-		if ((prompt[*i] == '<' && prompt[*i + 1] == '<')
-			|| (prompt[*i] == '>' && prompt[*i + 1] == '>'))
+		if ((h->str[h->i] == '<' && h->str[h->i + 1] == '<')
+			|| (h->str[h->i] == '>' && h->str[h->i + 1] == '>'))
 		{
-			if (*start_q)
+			if (h->start_q)
 			{
-				add_token_and_free(*start_q, &prompt[*i], prompt, tshell);
-				*start_q = NULL;
+				add_token_free(h->start_q, &h->str[h->i], h->str, h->ms);
+				h->start_q = NULL;
 			}
-			add_token_and_free(&prompt[*i], &prompt[*i + 2], prompt, tshell);
-			*i += 1;
+			add_token_free(&h->str[h->i], &h->str[h->i + 2], h->str, h->ms);
+			h->i += 1;
 		}
 		else
 		{
-			if (*start_q)
+			if (h->start_q)
 			{
-				add_token_and_free(*start_q, &prompt[*i], prompt, tshell);
-				*start_q = NULL;
+				add_token_free(h->start_q, &h->str[h->i], h->str, h->ms);
+				h->start_q = NULL;
 			}
-			add_token_and_free(&prompt[*i], &prompt[*i + 1], prompt, tshell);
+			add_token_free(&h->str[h->i], &h->str[h->i + 1], h->str, h->ms);
 		}
 	}
 }
 
-void	tokens(char *prompt, t_myshell *tshell)
+void	tokens(char *str, t_myshell *ms)
 {
-	char	*start_q;
-	int		i;
-	char	quote_char;
+	t_token_handler	h;
 
-	start_q = NULL;
-	i = 0;
-	quote_char = '\0';
-	while (prompt[i])
+	h = init_token_handler(str, ms);
+	while (str[h.i])
 	{
-		handle_space(prompt, &i, &start_q, quote_char, tshell);
-		handle_quotes(prompt, &i, &quote_char, &start_q, tshell);
-		handle_pipe(prompt, &i, &quote_char, &start_q, tshell);
-		handle_redirection(prompt, &i, &start_q, quote_char, tshell);
-		if (prompt[i] != ' ' && prompt[i] != '\'' && prompt[i] != '"'
-			&& prompt[i] != '|' && prompt[i] != '<' && prompt[i] != '>'
-			&& !start_q)
-			start_q = &prompt[i];
-		i++;
+		handle_space(&h);
+		handle_quotes(&h);
+		handle_pipe(&h);
+		handle_redirection(&h);
+		if (str[h.i] != ' ' && str[h.i] != '\'' && str[h.i] != '"'
+			&& str[h.i] != '|' && str[h.i] != '<' && str[h.i] != '>'
+			&& !h.start_q)
+			h.start_q = &str[h.i];
+		h.i++;
 	}
-	if (start_q)
-		add_token_and_free(start_q, &prompt[i], prompt, tshell);
-	split_various_dolar(tshell);
+	if (h.start_q)
+		add_token_free(h.start_q, &str[h.i], str, ms);
+	split_various_dolar(ms);
 }

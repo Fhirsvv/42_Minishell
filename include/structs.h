@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 16:07:55 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/11/13 19:58:13 by ecortes-         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:24:21 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,14 @@ typedef struct s_myshell
 	t_token		*tokens;
 	t_comand	*comands;
 }	t_myshell;
+
+typedef struct s_token_handler
+{
+	char		*str;
+	char		*start_q;
+	int			i;
+	char		quote;
+	t_myshell	*ms;
+}	t_token_handler;
 
 #endif

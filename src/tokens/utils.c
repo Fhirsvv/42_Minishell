@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/28 21:23:00 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/11/13 19:38:54 by ecortes-         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:09:02 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	token_type(char *str)
 		return (WORD);
 }
 
-void	add_token_and_free(char *start_q, char *end_q, char *prompt,
+void	add_token_free(char *start_q, char *end_q, char *prompt,
 	t_myshell *tshell)
 {
 	char	*buff;

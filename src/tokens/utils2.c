@@ -6,7 +6,7 @@
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/28 12:16:38 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/10/11 23:38:26 by ecortes-         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:20:15 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,15 @@ void	ft_add_after(t_myshell *tshell, char **arr, t_token *new, int *i)
 		new = new->next;
 		*i = *i + 1;
 	}
+}
+
+t_token_handler	init_token_handler(char *str, t_myshell *ms)
+{
+	t_token_handler	h;
+
+	h.i = 0;
+	h.str = str;
+	h.quote = 0;
+	h.ms = ms;
+	return (h);
 }

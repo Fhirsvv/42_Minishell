@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_commands_utils.c                              :+:      :+:    :+:   */
+/*   commands_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ecortes- <ecortes-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/12 17:44:22 by ecortes-          #+#    #+#             */
-/*   Updated: 2024/08/16 18:10:37 by ecortes-         ###   ########.fr       */
+/*   Updated: 2025/01/31 20:27:48 by ecortes-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	args_size(t_token *token)
 
 	count = 0;
 	aux = token;
-	while(aux->symbol == WORD || aux->symbol == D_QUOTE ||
+	while (aux->symbol == WORD || aux->symbol == D_QUOTE ||
 			aux->symbol == S_QUOTE)
 	{
 		count++;
